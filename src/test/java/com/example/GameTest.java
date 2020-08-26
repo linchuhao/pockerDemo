@@ -21,7 +21,7 @@ public class GameTest {
     String white = "3H 3D 3S 5C 3D";
     String black = "3H 4H 5H 6H 7H";
     // when
-    String result = game.run(white, black);
+    String result = game.run(black, white);
     // then
     assertEquals("Black win. - with Straight flush", result);
   }
