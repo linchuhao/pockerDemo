@@ -25,4 +25,15 @@ public class GameTest {
     // then
     assertEquals("Black win. - with Straight flush", result);
   }
+
+  @Test
+  public void should_be_return_white_wins_when_given_pokers_black_3H_4H_5H_6H_7H_white_4H_5H_6H_7H_8H() {
+    //given
+    String white = "4H 5H 6H 7H 8H";
+    String black = "3H 4H 5H 6H 7H";
+    //when
+    String result = game.run(black,white);
+    //then
+    assertEquals("White win. - with high card 8", result);
+  }
 }
