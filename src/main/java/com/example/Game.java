@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import static com.example.Level.FOUR_OF_A_KIND;
+import static com.example.Level.FULL_HOUSE;
 import static com.example.Level.HIGH_CARD;
 import static com.example.Level.STRAIGHT_FLUSH;
 
@@ -50,6 +51,20 @@ public class Game {
         && pokerList.get(startIndex + 2).getValue() == pokerList.get(startIndex + 3).getValue();
   }
 
+  private boolean isFullHouse(List<Poker> pokerList) {
+    return isThreeOfKind(0, pokerList) && isPair(3, pokerList)
+        || isPair(0, pokerList) && isThreeOfKind(2, pokerList);
+  }
+
+  private boolean isThreeOfKind(int startIndex, List<Poker> pokerList) {
+    return pokerList.get(startIndex).getValue() == pokerList.get(startIndex + 1).getValue()
+        && pokerList.get(startIndex + 1).getValue() == pokerList.get(startIndex + 2).getValue();
+  }
+
+  private boolean isPair(int startIndex, List<Poker> pokerList) {
+    return pokerList.get(startIndex).getValue() == pokerList.get(startIndex + 1).getValue();
+  }
+
   private Level level(PokerHands pokerHands) {
     List<Poker> pokerList = pokerHands.getPokers();
     boolean isFlush = true;
@@ -71,6 +86,9 @@ public class Game {
     }
     if (isFourOfAKind(0, pokerList) || isFourOfAKind(1, pokerList)) {
       return FOUR_OF_A_KIND;
+    }
+    if (isFullHouse(pokerList)) {
+      return FULL_HOUSE;
     }
 
     return HIGH_CARD;
