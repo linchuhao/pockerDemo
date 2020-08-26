@@ -88,17 +88,15 @@ public class Game {
     } else {
       List<Poker> blackPokerList = blackPokerHands.getPokers();
       List<Poker> whitePokerList = whitePokerHands.getPokers();
-      if (blackPokerList.get(blackPokerList.size() - 1).getValue()
-          > whitePokerList.get(blackPokerList.size() - 1).getValue()) {
-        return "Black win. - with high card "
-            + blackPokerList.get(blackPokerList.size() - 1).getValue();
-      } else if (blackPokerList.get(blackPokerList.size() - 1).getValue()
-          < whitePokerList.get(blackPokerList.size() - 1).getValue()) {
-        return "White win. - with high card "
-            + whitePokerList.get(whitePokerList.size() - 1).getValue();
-      } else {
-        return "Tie";
+      for (int i = 4; i >= 0; i--) {
+        if (blackPokerList.get(i).getValue() < whitePokerList.get(i).getValue()) {
+          return "White win. - with high card " + whitePokerList.get(i).getValue();
+        }
+        if (blackPokerList.get(i).getValue() > whitePokerList.get(i).getValue()) {
+          return "Black win. - with high card " + blackPokerList.get(i).getValue();
+        }
       }
+      return "Tie";
     }
   }
 
