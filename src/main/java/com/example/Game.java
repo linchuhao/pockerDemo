@@ -25,7 +25,7 @@ public class Game {
     if (value == 'K') {
       return 13;
     }
-    return value;
+    return value - 48;
   }
 
   private PokerHands generatePokerHands(String cards) {
@@ -69,6 +69,18 @@ public class Game {
     Level whiteLevel = level(whitePokerHands);
     if (blackLevel.getLevel() > whiteLevel.getLevel()) {
       return "Black win. - with " + blackLevel.getKind();
+    }
+    if (blackLevel.getLevel() == whiteLevel.getLevel()) {
+      List<Poker> blackPokerList = blackPokerHands.getPokers();
+      List<Poker> whitePokerList = whitePokerHands.getPokers();
+      if (blackPokerList.get(blackPokerList.size() - 1).getValue()
+          > whitePokerList.get(blackPokerList.size() - 1).getValue()) {
+        return "Black win. - with high card "
+            + blackPokerList.get(blackPokerList.size() - 1).getValue();
+      } else {
+        return "White win. - with high card "
+            + whitePokerList.get(whitePokerList.size() - 1).getValue();
+      }
     }
     return null;
   }
