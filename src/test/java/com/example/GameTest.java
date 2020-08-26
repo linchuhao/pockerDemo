@@ -72,4 +72,16 @@ public class GameTest {
     // then
     assertEquals("Tie", result);
   }
+
+  @Test
+  public void
+      should_be_return_white_win_when_given_pokers_black_3H_3D_5S_5C_3D_white_3H_3D_3S_5C_3D() {
+    // given
+    String white = "3H 3D 3S 5C 3D";
+    String black = "3H 3D 5S 5C 3D";
+    // when
+    String result = game.run(black, white);
+    // then
+    assertEquals("White win. - with Four of a kind", result);
+  }
 }

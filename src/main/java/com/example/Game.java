@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import static com.example.Level.FOUR_OF_A_KIND;
 import static com.example.Level.HIGH_CARD;
 import static com.example.Level.STRAIGHT_FLUSH;
 
@@ -43,6 +44,12 @@ public class Game {
     return pokerHands;
   }
 
+  private boolean isFourOfAKind(int startIndex, List<Poker> pokerList) {
+    return pokerList.get(startIndex).getValue() == pokerList.get(startIndex + 1).getValue()
+        && pokerList.get(startIndex + 1).getValue() == pokerList.get(startIndex + 2).getValue()
+        && pokerList.get(startIndex + 2).getValue() == pokerList.get(startIndex + 3).getValue();
+  }
+
   private Level level(PokerHands pokerHands) {
     List<Poker> pokerList = pokerHands.getPokers();
     boolean isFlush = true;
@@ -53,15 +60,17 @@ public class Game {
       }
       if (pokerList.get(i).getValue() - 1 != pokerList.get(i - 1).getValue()) {
         isStraight = false;
-        if (pokerList.get(i).getValue() == 14 && pokerList.get(i-1).getValue() == 5) {
+        if (pokerList.get(i).getValue() == 14 && pokerList.get(i - 1).getValue() == 5) {
           isStraight = true;
           transformAce(pokerList, i);
         }
       }
     }
-
     if (isFlush && isStraight) {
       return STRAIGHT_FLUSH;
+    }
+    if (isFourOfAKind(0, pokerList) || isFourOfAKind(1, pokerList)) {
+      return FOUR_OF_A_KIND;
     }
 
     return HIGH_CARD;
@@ -74,8 +83,9 @@ public class Game {
     Level whiteLevel = level(whitePokerHands);
     if (blackLevel.getLevel() > whiteLevel.getLevel()) {
       return "Black win. - with " + blackLevel.getKind();
-    }
-    if (blackLevel.getLevel() == whiteLevel.getLevel()) {
+    } else if (blackLevel.getLevel() < whiteLevel.getLevel()) {
+      return "White win. - with " + whiteLevel.getKind();
+    } else {
       List<Poker> blackPokerList = blackPokerHands.getPokers();
       List<Poker> whitePokerList = whitePokerHands.getPokers();
       if (blackPokerList.get(blackPokerList.size() - 1).getValue()
@@ -83,17 +93,16 @@ public class Game {
         return "Black win. - with high card "
             + blackPokerList.get(blackPokerList.size() - 1).getValue();
       } else if (blackPokerList.get(blackPokerList.size() - 1).getValue()
-          < whitePokerList.get(blackPokerList.size() - 1).getValue()){
+          < whitePokerList.get(blackPokerList.size() - 1).getValue()) {
         return "White win. - with high card "
             + whitePokerList.get(whitePokerList.size() - 1).getValue();
       } else {
         return "Tie";
       }
     }
-    return null;
   }
 
-  private void transformAce(List<Poker> pokerList, int index){
+  private void transformAce(List<Poker> pokerList, int index) {
     pokerList.get(index).setValue(1);
     pokerList.sort(Comparator.comparing(Poker::getValue));
   }
