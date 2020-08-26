@@ -82,9 +82,12 @@ public class Game {
           > whitePokerList.get(blackPokerList.size() - 1).getValue()) {
         return "Black win. - with high card "
             + blackPokerList.get(blackPokerList.size() - 1).getValue();
-      } else {
+      } else if (blackPokerList.get(blackPokerList.size() - 1).getValue()
+          < whitePokerList.get(blackPokerList.size() - 1).getValue()){
         return "White win. - with high card "
             + whitePokerList.get(whitePokerList.size() - 1).getValue();
+      } else {
+        return "Tie";
       }
     }
     return null;

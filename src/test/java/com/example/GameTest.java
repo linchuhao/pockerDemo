@@ -27,35 +27,49 @@ public class GameTest {
   }
 
   @Test
-  public void should_be_return_white_wins_when_given_pokers_black_3H_4H_5H_6H_7H_white_4S_5S_6S_7S_8S() {
-    //given
-    String white = "4H 5H 6H 7H 8H";
+  public void
+      should_be_return_white_wins_when_given_pokers_black_3H_4H_5H_6H_7H_white_4S_5S_6S_7S_8S() {
+    // given
+    String white = "3H 4H 5H 6H 7H";
     String black = "4S 5S 6S 7S 8S";
-    //when
-    String result = game.run(black,white);
-    //then
-    assertEquals("White win. - with high card 8", result);
+    // when
+    String result = game.run(black, white);
+    // then
+    assertEquals("Black win. - with high card 8", result);
   }
 
   @Test
-  public void should_be_return_black_win_when_given_pokers_black_AS_2S_3S_4S_5S_white_3H_3D_3S_5C_3D() {
-    //given
+  public void
+      should_be_return_black_win_when_given_pokers_black_AS_2S_3S_4S_5S_white_3H_3D_3S_5C_3D() {
+    // given
     String white = "3H 3D 3S 5C 3D";
     String black = "AS 2S 3S 4S 5S";
-    //when
-    String result = game.run(black,white);
-    //then
-    assertEquals("Black win. - with Straight flush",result);
+    // when
+    String result = game.run(black, white);
+    // then
+    assertEquals("Black win. - with Straight flush", result);
   }
 
   @Test
-  public void should_be_return_white_win_when_given_pokers_black_AS_2S_3S_4S_5S_white_2H_3H_4H_5H_6H() {
-    //given
+  public void
+      should_be_return_white_win_when_given_pokers_black_AS_2S_3S_4S_5S_white_2H_3H_4H_5H_6H() {
+    // given
     String white = "2H 3H 4H 5H 6H";
     String black = "AS 2S 3S 4S 5S";
-    //when
-    String result = game.run(black,white);
-    //then
-    assertEquals("White win. - with high card 6",result);
+    // when
+    String result = game.run(black, white);
+    // then
+    assertEquals("White win. - with high card 6", result);
+  }
+
+  @Test
+  public void should_be_return_tie_when_given_pokers_black_3H_4H_5H_6H_7H_white_3S_4S_5S_6S_7S() {
+    // given
+    String white = "3S 4S 5S 6S 7S";
+    String black = "3H 4H 5H 6H 7H";
+    // when
+    String result = game.run(black, white);
+    // then
+    assertEquals("Tie", result);
   }
 }
