@@ -79,6 +79,10 @@ public class Game {
   public String run(String black, String white) {
     PokerHands blackPokerHands = generatePokerHands(black);
     PokerHands whitePokerHands = generatePokerHands(white);
+    return getResult(blackPokerHands, whitePokerHands);
+  }
+
+  private String getResult(PokerHands blackPokerHands, PokerHands whitePokerHands) {
     Level blackLevel = level(blackPokerHands);
     Level whiteLevel = level(whitePokerHands);
     if (blackLevel.getLevel() > whiteLevel.getLevel()) {
@@ -86,18 +90,22 @@ public class Game {
     } else if (blackLevel.getLevel() < whiteLevel.getLevel()) {
       return "White win. - with " + whiteLevel.getKind();
     } else {
-      List<Poker> blackPokerList = blackPokerHands.getPokers();
-      List<Poker> whitePokerList = whitePokerHands.getPokers();
-      for (int i = 4; i >= 0; i--) {
-        if (blackPokerList.get(i).getValue() < whitePokerList.get(i).getValue()) {
-          return "White win. - with high card " + whitePokerList.get(i).getValue();
-        }
-        if (blackPokerList.get(i).getValue() > whitePokerList.get(i).getValue()) {
-          return "Black win. - with high card " + blackPokerList.get(i).getValue();
-        }
-      }
-      return "Tie";
+      return getResultWithSameLevel(blackPokerHands, whitePokerHands);
     }
+  }
+
+  private String getResultWithSameLevel(PokerHands blackPokerHands, PokerHands whitePokerHands) {
+    List<Poker> blackPokerList = blackPokerHands.getPokers();
+    List<Poker> whitePokerList = whitePokerHands.getPokers();
+    for (int i = 4; i >= 0; i--) {
+      if (blackPokerList.get(i).getValue() < whitePokerList.get(i).getValue()) {
+        return "White win. - with high card " + whitePokerList.get(i).getValue();
+      }
+      if (blackPokerList.get(i).getValue() > whitePokerList.get(i).getValue()) {
+        return "Black win. - with high card " + blackPokerList.get(i).getValue();
+      }
+    }
+    return "Tie";
   }
 
   private void transformAce(List<Poker> pokerList, int index) {
