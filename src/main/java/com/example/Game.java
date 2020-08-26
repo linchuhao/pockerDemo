@@ -55,10 +55,14 @@ public class Game {
         isStraight = false;
       }
     }
+    if (pokerList.get(3).getValue() == 5 && pokerList.get(4).getValue() == 14){
+      isStraight = true;
+    }
 
     if (isFlush && isStraight) {
       return STRAIGHT_FLUSH;
     }
+
     return HIGH_CARD;
   }
 
