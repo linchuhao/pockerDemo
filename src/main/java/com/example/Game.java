@@ -55,6 +55,7 @@ public class Game {
         isStraight = false;
         if (pokerList.get(i).getValue() == 14 && pokerList.get(i-1).getValue() == 5) {
           isStraight = true;
+          transformAce(pokerList, i);
         }
       }
     }
@@ -87,5 +88,10 @@ public class Game {
       }
     }
     return null;
+  }
+
+  private void transformAce(List<Poker> pokerList, int index){
+    pokerList.get(index).setValue(1);
+    pokerList.sort(Comparator.comparing(Poker::getValue));
   }
 }
