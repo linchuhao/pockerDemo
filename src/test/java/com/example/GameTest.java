@@ -108,4 +108,16 @@ public class GameTest {
     // then
     assertEquals("White win. - with Full House", result);
   }
+
+  @Test
+  public void
+  should_be_return_white_win_when_given_pokers_black_3H_3D_5S_5C_3D_white_4H_4D_6S_6C_4D() {
+    // given
+    String white = "3H 3D 5S 5C 3D";
+    String black = "4H 4D 6S 6C 4D";
+    // when
+    String result = game.run(black, white);
+    // then
+    assertEquals("Black win. - with high card 4", result);
+  }
 }
