@@ -53,10 +53,10 @@ public class Game {
       }
       if (pokerList.get(i).getValue() - 1 != pokerList.get(i - 1).getValue()) {
         isStraight = false;
+        if (pokerList.get(i).getValue() == 14 && pokerList.get(i-1).getValue() == 5) {
+          isStraight = true;
+        }
       }
-    }
-    if (pokerList.get(3).getValue() == 5 && pokerList.get(4).getValue() == 14){
-      isStraight = true;
     }
 
     if (isFlush && isStraight) {
