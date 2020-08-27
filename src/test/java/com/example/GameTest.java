@@ -59,7 +59,7 @@ public class GameTest {
     // when
     String result = game.run(black, white);
     // then
-    assertEquals("White win. - with Three kinds", result);
+    assertEquals("White win. - with Three of kind", result);
   }
 
   @Test

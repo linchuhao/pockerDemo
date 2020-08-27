@@ -82,26 +82,23 @@ public class Game {
       }
       if (pokerList.get(i).getValue() - 1 != pokerList.get(i - 1).getValue()) {
         isStraight = false;
-        if (pokerList.get(i).getValue() == 14 && pokerList.get(i - 1).getValue() == 5) {
-          isStraight = true;
-          transformAce(pokerList, i);
-        }
       }
     }
+    isStraight = isStraightWithAce(pokerList, isStraight);
     if (isFlush && isStraight) {
       return STRAIGHT_FLUSH;
-    }
-    if (isFlush) {
-      return FLUSH;
-    }
-    if (isStraight) {
-      return STRAIGHT;
     }
     if (isFourOfAKind(0, pokerList) || isFourOfAKind(1, pokerList)) {
       return FOUR_OF_A_KIND;
     }
     if (isFullHouse(pokerList)) {
       return FULL_HOUSE;
+    }
+    if (isFlush) {
+      return FLUSH;
+    }
+    if (isStraight) {
+      return STRAIGHT;
     }
     if (isThreeOfKind(0, pokerList) || isThreeOfKind(2, pokerList)) {
       return THREE_OF_KIND;
@@ -112,10 +109,23 @@ public class Game {
     if (isPair(0, pokerList) || isPair(1, pokerList) || isPair(2, pokerList) || isPair(3, pokerList)) {
       return PAIR;
     }
-    if (isFourOfAKind(0, pokerList) || isFourOfAKind(1, pokerList)) {
-      return FOUR_OF_A_KIND;
-    }
     return HIGH_CARD;
+  }
+
+  private boolean isStraightWithAce(List<Poker> pokerList, boolean isStraight) {
+    if (pokerList.get(4).getValue() == 14 && pokerList.get(0).getValue() == 2){
+      isStraight = true;
+      for (int i =1; i < pokerList.size() -1; i++) {
+        if (pokerList.get(i).getValue() - 1 != pokerList.get(i - 1).getValue()) {
+          isStraight = false;
+          break;
+        }
+      }
+      if (isStraight) {
+        transformAce(pokerList, 4);
+      }
+    }
+    return isStraight;
   }
 
   public String run(String black, String white) {
