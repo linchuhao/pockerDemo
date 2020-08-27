@@ -28,6 +28,30 @@ public class GameTest {
 
   @Test
   public void
+  should_be_return_white_win_when_given_pokers_Black_AH_2H_3H_4H_5H_white_2C_3C_4C_5C_6C() {
+    // given
+    String white = "2C 3C 4C 5C 6C";
+    String black = "AH 2H 3H 4H 5H";
+    // when
+    String result = game.run(black, white);
+    // then
+    assertEquals("White win. - with high card 6", result);
+  }
+
+  @Test
+  public void
+  should_be_return_white_win_when_given_pokers_Black_AH_2C_3H_4H_5H_white_2C_3C_4C_5C_6C() {
+    // given
+    String white = "2C 3C 4C 5C 6C";
+    String black = "AH 2C 3H 4H 5H";
+    // when
+    String result = game.run(black, white);
+    // then
+    assertEquals("White win. - with Straight flush", result);
+  }
+
+  @Test
+  public void
       should_be_return_white_wins_when_given_pokers_black_3H_4H_5H_6H_7H_white_4S_5S_6S_7S_8S() {
     // given
     String white = "3H 4H 5H 6H 7H";
